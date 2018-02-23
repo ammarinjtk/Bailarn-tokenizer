@@ -15,4 +15,4 @@ This project is licensed under the MIT License
 ## Acknowledgement
 
 * The code for this project is inspired from [KenjiroAI, github](https://github.com/KenjiroAI/SynThai)
-* The model had trained from BEST data supported by [NECTEC](https://www.nectec.or.th/corpus/index.php?league=pm)
+* The model had trained InterBEST 2009/2010 (size: 5M words) supported by [NECTEC](https://www.nectec.or.th/corpus/index.php?league=pm)
