@@ -7,3 +7,5 @@ metastore_db/*
 models/*
 
 .idea/*
+
+*.pyc

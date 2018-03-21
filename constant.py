@@ -3,6 +3,7 @@ Global Constant
 """
 
 import string
+import os
 
 # Spacebar
 SPACEBAR = " "
@@ -151,7 +152,8 @@ TAG_LIST = ["NN", "NR", "PPER", "PINT", "PDEM", "DPER", "DINT", "DDEM", "PDT",
 
 NUM_TAGS = len(TAG_LIST) + 2
 
-DEFULT_MODEL_PATH = "./models/0014-0.0443.hdf5"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DEFULT_MODEL_PATH = BASE_DIR + "/models/0014-0.0443.hdf5"
 
 # Random Seed
 SEED = 1395096092

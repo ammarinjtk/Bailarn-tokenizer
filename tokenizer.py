@@ -68,6 +68,7 @@ class Bailarn_Tokenizer(object):
         self.new_model = False
 
     def predict(self, sentence=None, corpus_directory=None, word_delimiter="|"):
+        texts = " "
         if corpus_directory:
             texts = Corpus(corpus_directory)
             # print("Directory mode:", texts.count, "files.")
@@ -76,7 +77,8 @@ class Bailarn_Tokenizer(object):
             texts.add_text(sentence)
             # print("Sentence mode:")
         else:
-            print("Error, please fill in sentence or corpus_directory!")
+            texts = " "
+            print("Please fill in sentence or corpus_directory!")
 
         inb = InputBuilder(texts, self.char_index,
                            self.tag_index, num_step=60, y_one_hot=False)
