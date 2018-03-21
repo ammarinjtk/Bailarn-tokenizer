@@ -2,6 +2,16 @@
 
 API contains Tokenizer for Thai Text Platform as a senior project for Computer Engineering, Chulalongkorn University (CP41)
 
+## Short introduction
+```
+>>> from Tokenizer import *
+>>> bailarn_tokenizer = Bailarn_Tokenizer(model_path="./models/0014-0.0443.hdf5")
+>>> print(bailarn_tokenizer.predict(sentence="ฉันกินข้าว"))
+[['ฉัน', 'กิน', 'ข้าว']]
+>>> print(bailarn_tokenizer.predict(sentence="ฉันกินข้าว")[0])
+['ฉัน', 'กิน', 'ข้าว']
+```
+
 ## Authors
 
 * **Ammarin Jetthakun** - *Initial work* - [ammarinjtk](https://github.com/ammarinjtk)
