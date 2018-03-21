@@ -11,7 +11,8 @@ import string
 import numpy as np
 from keras.utils.np_utils import to_categorical
 
-import constant
+from Tokenizer import constant
+
 
 class Text(object):
     def __init__(self, path, filename, content):
@@ -140,8 +141,10 @@ class Corpus(object):
                 tag = datum[-2]
 
                 # Replace escape character to proper character
-                word = word.replace(constant.ESCAPE_WORD_DELIMITER, self.word_delimiter)
-                tag = tag.replace(constant.ESCAPE_TAG_DELIMITER, self.tag_delimiter)
+                word = word.replace(
+                    constant.ESCAPE_WORD_DELIMITER, self.word_delimiter)
+                tag = tag.replace(
+                    constant.ESCAPE_TAG_DELIMITER, self.tag_delimiter)
 
             # Replace token with word and tag pair
             token_list[idx] = (word, tag)
@@ -159,6 +162,7 @@ class Corpus(object):
             return list()
 
         return list(content)
+
 
 class InputBuilder(object):
     """Input Builder"""
@@ -192,7 +196,8 @@ class InputBuilder(object):
         encoded_char_list = self._pad(encoded_char_list, self.num_step)
 
         if self.x_3d:
-            encoded_char_list = encoded_char_list.reshape((-1, self.num_step, 1))
+            encoded_char_list = encoded_char_list.reshape(
+                (-1, self.num_step, 1))
         else:
             encoded_char_list = encoded_char_list.reshape((-1, self.num_step))
 
@@ -217,7 +222,8 @@ class InputBuilder(object):
                 self.x.extend(encoded_char_list)
 
                 # Encode y
-                self.y.extend([constant.NON_SEGMENT_TAG_INDEX] * (len(word) - 1))
+                self.y.extend([constant.NON_SEGMENT_TAG_INDEX]
+                              * (len(word) - 1))
                 encoded_tag = self._encode(
                     self.tag_index, tag, custom_index=custom_index, default_index=constant.UNKNOW_CHAR_INDEX)
                 self.y.append(encoded_tag)

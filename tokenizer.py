@@ -1,12 +1,13 @@
-from utils import Corpus, InputBuilder, index_builder, DottableDict
-from model import Model
-import constant
+from Tokenizer.model import Model
+from Tokenizer.metric import custom_metric
+from Tokenizer import constant
+from Tokenizer.utils import Corpus, InputBuilder, index_builder, DottableDict
 
 from keras.models import load_model
 import numpy as np
 
 
-class Tokenizer(object):
+class Bailarn_Tokenizer(object):
     def __init__(self, model_path=None, new_model=False):
         self.new_model = new_model
         self.model_path = model_path
@@ -32,7 +33,8 @@ class Tokenizer(object):
         train_dataset = Corpus(corpus_directory, word_delimiter, tag_delimiter)
 
         # Generate input
-        inb = InputBuilder(train_dataset, char_index, tag_index, num_step)
+        inb = InputBuilder(train_dataset, self.char_index,
+                           self.tag_index, num_step)
         x_true = inb.x
         y_true = inb.y
 
@@ -41,7 +43,8 @@ class Tokenizer(object):
             "num_step": num_step,
             "learning_rate": learning_rate
         })
-        if new_model:
+
+        if self.new_model:
             initial_epoch = 0
             model = Model(hyper_params).model
 
@@ -64,16 +67,17 @@ class Tokenizer(object):
         self.model = model
         self.new_model = False
 
-    def predict(self, sentence=None, corpus_directory, word_delimiter="|"):
+    def predict(self, sentence=None, corpus_directory=None, word_delimiter="|"):
         if corpus_directory:
             texts = Corpus(corpus_directory)
-            print("Directory mode:", texts.count, "files.")
+            # print("Directory mode:", texts.count, "files.")
         elif sentence:
             texts = Corpus("/")
             texts.add_text(sentence)
-            print("Sentence mode:")
+            # print("Sentence mode:")
         else:
             print("Error, please fill in sentence or corpus_directory!")
+
         inb = InputBuilder(texts, self.char_index,
                            self.tag_index, num_step=60, y_one_hot=False)
 
@@ -117,5 +121,33 @@ class Tokenizer(object):
             all_result.append(("".join(result)).split(word_delimiter))
         return all_result
 
-    def evaluate(self):
+    def evaluate(self, sentence=None, corpus_directory=None, model_num_step=60, word_delimiter="|", tag_delimiter="/"):
+        # Load test dataset
+        if corpus_directory:
+            test_dataset = Corpus(
+                corpus_directory, word_delimiter, tag_delimiter)
+            print("Test for directory mode:", test_dataset.count, "files.")
+        elif sentence:
+            test_dataset = Corpus("/")
+            test_dataset.add_text(sentence)
+            print("Test for sentence mode:")
+        else:
+            print("Error, please fill in sentence or corpus_directory!")
+
+        # Generate input
+        inb = InputBuilder(test_dataset, self.char_index, self.tag_index, model_num_step,
+                           y_one_hot=False)
+        x_true = inb.x
+        y_true = inb.y
+
+        # Predict
+        y_pred = self.model.predict(x_true)
+        y_pred = np.argmax(y_pred, axis=2)
+
+        # Calculate score
+        scores, _ = custom_metric(y_true, y_pred)
+
+        # Display score
+        for metric, score in scores.items():
+            print("{0}: {1:.6f}".format(metric, score))
         return None
