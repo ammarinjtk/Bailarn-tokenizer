@@ -7,4 +7,4 @@ def tokenize(sentence):
     return bailarn_tokenizer.predict(sentence=sentence)[0]
 
 
-__all__ = ['Bailarn_Tokenizer', 'tokenize']
+__all__ = ['Bailarn_Tokenizer', 'tokenize', 'bailarn_tokenizer']
