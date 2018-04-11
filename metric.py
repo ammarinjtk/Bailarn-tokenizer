@@ -51,4 +51,4 @@ def custom_metric(y_true, y_pred, gen_cm=False):
     for metric, score in scores.items():
         scores[metric] = score / sample_size
 
-    return scores, confusion_matrix
+    return scores

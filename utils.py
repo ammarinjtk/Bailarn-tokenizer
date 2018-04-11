@@ -11,7 +11,7 @@ import string
 import numpy as np
 from keras.utils.np_utils import to_categorical
 
-from Tokenizer import constant
+import constant
 
 
 class Text(object):

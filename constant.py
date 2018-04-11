@@ -150,7 +150,8 @@ TAG_LIST = ["NN", "NR", "PPER", "PINT", "PDEM", "DPER", "DINT", "DDEM", "PDT",
             "CD", "OD", "FXN", "FXG", "FXAV", "FXAJ", "COMP", "CNJ", "P", "IJ",
             "PU", "FWN", "FWV", "FWA", "FWX"]
 
-NUM_TAGS = len(TAG_LIST) + 2
+# NUM_TAGS = len(TAG_LIST) + 2
+NUM_TAGS = 1
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DEFULT_MODEL_PATH = BASE_DIR + "/models/0014-0.0443.hdf5"
