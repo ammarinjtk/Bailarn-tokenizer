@@ -139,7 +139,7 @@ snowballstemmer==1.2.1
 spark-sklearn==0.2.0
 Sphinx==1.6.5
 sphinxcontrib-websupport==1.0.1
-tensorflow==1.5.0
+tensorflow==2.6.4
 tensorflow-tensorboard==1.5.1
 terminado==0.6
 testpath==0.3.1
