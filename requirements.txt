@@ -45,7 +45,7 @@ future==0.16.0
 gensim==2.3.0
 get==0.0.39
 h5py==2.7.1
-html5lib==0.9999999
+html5lib==0.999999999
 hyperlink==17.2.1
 hyperopt==0.1
 idna==2.6
